@@ -33,4 +33,47 @@ document.querySelector("#reset").addEventListener("click", () => {
 
 /* START CODING HERE */
 
+document.querySelector("#populationBigger").addEventListener("click", function() {
+  const newData  = data.filter((city) => {
+    return city.population > 500000;
+  });
+    createTableElements(newData, "allcities");
+});
 
+document.querySelector("#landAreaLess").addEventListener("click", function() {
+  const newData  = data.filter((city) => {
+    return city.landArea < 1000;
+  });
+    createTableElements(newData, "allcities");
+});
+
+
+document.querySelector("#isPopulationLess").addEventListener("click", () => {
+  createTableElements([], "allcities");
+  const populationLess = data.some(city => city.population < 100000);
+ alert((populationLess) ? populationLess : false);
+});
+
+
+document.querySelector("#isLandBigger").addEventListener("click", () => {
+  createTableElements([], "allcities");
+  const landBigger = data.some(city => city.landArea > 100);
+ alert((landBigger) ? landBigger : false);
+});
+
+
+const selectOptions = (data) => {
+  const selectOptionElement = document.querySelector("#inputGroupSelect01");
+  data.forEach((city) => {
+    const cityOption = document.createElement("option");
+    cityOption.text = city.name;
+    cityOption.value = city.name;
+    selectOptionElement.appendChild(cityOption);
+  });
+};
+
+selectOptions(data);
+document.querySelector("#inputGroupSelect01").addEventListener("change", (event) => {
+  const selected = data.filter(city => event.target.value === city.name);
+  createTableElements(selected, "singlecity");
+});
